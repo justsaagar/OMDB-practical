@@ -8,5 +8,5 @@ class RouteHelper {
 
   RouteHelper._internal();
 
-  void goToMovieDetails() => Get.toNamed(RouteConstant.movieDetails);
+  void goToMovieDetails(String movieId) => Get.toNamed(RouteConstant.movieDetails, arguments: {'movieId': movieId});
 }

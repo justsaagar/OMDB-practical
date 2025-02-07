@@ -15,7 +15,10 @@ class MovieSearchHelper {
   void updateState() => state.movieController.update();
 
   Future<void> searchMovie() async {
+    apiStatus = ApiStatus.loading;
+    updateState();
     movieList = await state.movieController.getSearchedMovieList(searchController.text);
+    apiStatus = ApiStatus.success;
     updateState();
   }
 }

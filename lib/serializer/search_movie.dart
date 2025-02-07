@@ -52,4 +52,6 @@ class Movie {
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
 
   Map<String, dynamic> toJson() => _$MovieToJson(this);
+
+  bool get networkUrl => poster != null && poster != "N/A";
 }

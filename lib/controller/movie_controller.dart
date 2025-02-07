@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:omdb_practical/main.dart';
 import 'package:omdb_practical/repository/movie_repository/movie_repository.dart';
+import 'package:omdb_practical/serializer/movie_details.dart';
 import 'package:omdb_practical/serializer/search_movie.dart';
 
 class MovieController extends GetxController {
@@ -8,5 +9,9 @@ class MovieController extends GetxController {
 
   Future<List<Movie>> getSearchedMovieList(String movieName) async {
     return await movieRepository.searchMovie(movieName);
+  }
+
+  Future<MovieDetails?> getMovieDetails(String movieId) async {
+    return await movieRepository.getMovieDetails(movieId);
   }
 }

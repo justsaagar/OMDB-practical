@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:omdb_practical/screens/movie_module/movie_details_page.dart';
+import 'package:omdb_practical/screens/movie_module/movie_details/movie_details_page.dart';
 import 'package:omdb_practical/screens/movie_module/movie_search/movie_search_page.dart';
 
 class RouteConstant {
