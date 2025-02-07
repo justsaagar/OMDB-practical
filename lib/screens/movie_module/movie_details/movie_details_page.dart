@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:omdb_practical/app/enum/api_status.dart';
+import 'package:omdb_practical/app/routes/route_helper.dart';
 import 'package:omdb_practical/app/ui/app_image_asset.dart';
 import 'package:omdb_practical/app/ui/app_loader.dart';
 import 'package:omdb_practical/controller/movie_controller.dart';
@@ -26,12 +27,10 @@ class MovieDetailsPageState extends State<MovieDetailsPage> {
         this.movieController = movieController;
         return Scaffold(
           appBar: AppBar(
-            title: Text(
-              movieDetailsHelper?.movieDetails?.title ?? '',
-              style: TextStyle(color: Colors.white),
-            ),
+            title: Text(movieDetailsHelper?.movieDetails?.title ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             elevation: 0,
-            backgroundColor: Colors.deepPurple.withValues(alpha: 0.5),
+            centerTitle: true,
+            backgroundColor: Colors.pink.withValues(alpha: 0.5),
           ),
           body: Stack(
             children: [
@@ -41,15 +40,23 @@ class MovieDetailsPageState extends State<MovieDetailsPage> {
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         children: [
-                          Hero(
-                            tag: "moviePoster",
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: AppImageAsset(
-                                image: movieDetailsHelper?.movieDetails?.poster ?? '',
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                                height: 200,
+                          InkWell(
+                            onTap: () {
+                              RouteHelper.instance.goToImageExpansion(
+                                movieDetailsHelper?.movieDetails?.title ?? '',
+                                movieDetailsHelper?.movieDetails?.poster ?? '',
+                              );
+                            },
+                            child: Hero(
+                              tag: "moviePoster",
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: AppImageAsset(
+                                  image: movieDetailsHelper?.movieDetails?.poster ?? '',
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                  height: 200,
+                                ),
                               ),
                             ),
                           ),

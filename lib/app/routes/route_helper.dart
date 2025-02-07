@@ -9,4 +9,6 @@ class RouteHelper {
   RouteHelper._internal();
 
   void goToMovieDetails(String movieId) => Get.toNamed(RouteConstant.movieDetails, arguments: {'movieId': movieId});
+
+  void goToImageExpansion(String title, String poster) => Get.toNamed(RouteConstant.imageExpansion, arguments: {'title': title, 'poster': poster});
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:omdb_practical/app/enum/api_status.dart';
-import 'package:omdb_practical/app/routes/route_helper.dart';
 import 'package:omdb_practical/app/ui/app_image_asset.dart';
 import 'package:omdb_practical/app/ui/app_loader.dart';
 import 'package:omdb_practical/controller/movie_controller.dart';
@@ -24,12 +23,9 @@ class MovieSearchPageState extends State<MovieSearchPage> {
     movieSearchHelper ?? (movieSearchHelper = MovieSearchHelper(this));
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'OMDB search',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: Text('OMDB search'),
         elevation: 0,
-        backgroundColor: Colors.deepPurple.withValues(alpha: 0.5),
+        backgroundColor: Colors.pink.withValues(alpha: 0.5),
       ),
       backgroundColor: Colors.white,
       body: GetBuilder<MovieController>(
