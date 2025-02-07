@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:omdb_practical/app/enum/api_status.dart';
+import 'package:omdb_practical/app/routes/route_helper.dart';
 import 'package:omdb_practical/screens/movie_module/movie_search/movie_search_page.dart';
 import 'package:omdb_practical/serializer/search_movie.dart';
 
@@ -20,5 +21,11 @@ class MovieSearchHelper {
     movieList = await state.movieController.getSearchedMovieList(searchController.text);
     apiStatus = ApiStatus.success;
     updateState();
+  }
+
+  void manageMovie(Movie movie) {
+    movieList.clear();
+    searchController.clear();
+    RouteHelper.instance.goToMovieDetails(movie.imdbID ?? '');
   }
 }

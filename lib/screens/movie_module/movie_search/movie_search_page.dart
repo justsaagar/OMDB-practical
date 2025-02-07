@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:omdb_practical/app/enum/api_status.dart';
-import 'package:omdb_practical/app/helper/extension_helper.dart';
 import 'package:omdb_practical/app/routes/route_helper.dart';
 import 'package:omdb_practical/app/ui/app_image_asset.dart';
 import 'package:omdb_practical/app/ui/app_loader.dart';
@@ -24,7 +23,14 @@ class MovieSearchPageState extends State<MovieSearchPage> {
   Widget build(BuildContext context) {
     movieSearchHelper ?? (movieSearchHelper = MovieSearchHelper(this));
     return Scaffold(
-      appBar: AppBar(title: Text("Movie Search")),
+      appBar: AppBar(
+        title: Text(
+          'OMDB search',
+          style: TextStyle(color: Colors.white),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.deepPurple.withValues(alpha: 0.5),
+      ),
       backgroundColor: Colors.white,
       body: GetBuilder<MovieController>(
         init: MovieController(),
@@ -55,7 +61,7 @@ class MovieSearchPageState extends State<MovieSearchPage> {
                   ),
                   SizedBox(height: 16),
                   Expanded(
-                    child: (movieSearchHelper?.movieList.isEmpty ?? true)
+                    child: ((movieSearchHelper?.searchController.text.isNotEmpty ?? true) && (movieSearchHelper?.movieList.isEmpty ?? true))
                         ? Center(
                             child: Text('Movie not found!', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                           )
@@ -66,35 +72,38 @@ class MovieSearchPageState extends State<MovieSearchPage> {
                             itemBuilder: (context, index) {
                               final Movie? movie = movieSearchHelper?.movieList[index];
                               if (movie == null) return SizedBox();
-                              return Container(
-                                decoration: BoxDecoration(),
-                                child: Row(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: AppImageAsset(
-                                        image: movie.networkUrl ? movie.poster ?? '' : 'assets/icons/film-slate.png',
-                                        width: 100,
-                                        height: 100,
+                              return InkWell(
+                                onTap: () => movieSearchHelper?.manageMovie(movie),
+                                child: Container(
+                                  decoration: BoxDecoration(),
+                                  child: Row(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: AppImageAsset(
+                                          image: movie.networkUrl ? movie.poster ?? '' : 'assets/icons/film-slate.png',
+                                          width: 100,
+                                          height: 100,
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(width: 16),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            movie.title ?? '',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
+                                      SizedBox(width: 16),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              movie.title ?? '',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                              ),
                                             ),
-                                          ),
-                                          Text(movie.year ?? '', style: TextStyle(fontSize: 16)),
-                                        ],
+                                            Text(movie.year ?? '', style: TextStyle(fontSize: 16)),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               );
                             },
